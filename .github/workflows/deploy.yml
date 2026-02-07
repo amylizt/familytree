@@ -20,5 +20,5 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           source: "." 
-          target: "/var/www/familyphotos"
+          target: "/var/www/familytree"
           strip_components: 0
