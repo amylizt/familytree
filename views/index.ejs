@@ -150,22 +150,21 @@ const familyData = {
 
     <h1><%= familyData.title %></h1>
 
-    <div class="tree-viewport">
-        <% familyData.members.forEach((person) => { %>
-            <a href="/profile/<%= person.id %>" 
-               class="member-card" 
-               /* These variables switch between desktop/mobile coordinates automatically */
-               data-desktop-top="<%= person.top %>" data-desktop-left="<%= person.left %>"
-               data-mobile-top="<%= person.mTop %>" data-mobile-left="<%= person.mLeft %>"
-               style="top: <%= person.top %>%; left: <%= person.left %>%;">
-                <div class="photo-circle">
-                    <img src="<%= person.img %>" alt="<%= person.name %>" onerror="this.src='https://via.placeholder.com/100'">
-                </div>
-                <span class="name-label"><%= person.name %></span>
-            </a>
-        <% }) %>
-    </div>
-
+<div class="tree-viewport">
+    <% familyData.members.forEach((person) => { %>
+        <a href="/familytree/profile/<%= person.id %>" 
+           class="member-card" 
+           data-d-top="<%= person.top %>" data-d-left="<%= person.left %>"
+           data-m-top="<%= person.mTop %>" data-m-left="<%= person.mLeft %>"
+           style="top: <%= person.top %>%; left: <%= person.left %>%;">
+            
+            <div class="photo-circle">
+                <img src="/familytree/<%= person.img %>" alt="<%= person.name %>" onerror="this.src='https://via.placeholder.com/100'">
+            </div>
+            <span class="name-label"><%= person.name %></span>
+        </a>
+    <% }) %>
+</div>
 <script>
         function updatePositions() {
             // Updated breakpoint to 768px to match the CSS media query
