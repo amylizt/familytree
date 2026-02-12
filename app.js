@@ -15,6 +15,10 @@ app.get('/familytree', (req, res) => {
     res.render('index');
 });
 
+app.get('/familytree/poem', (req, res) => {
+    res.render('poem');
+});
+
 app.get('/familytree/profile/:id', (req, res) => {
     const memberId = req.params.id;
     const memberData = familyMembers[memberId];

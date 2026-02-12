@@ -12,6 +12,19 @@ module.exports = {
             { src: "dadwendygranny.jpg", caption: "With Granny at Christmas" }
         ]
     },
+    "chupp": {
+        name: "Andy and Eva Chupp",
+        birthday: "January 15 and  April 27",
+        location: "Places",
+        knownFor: "Laughter, Love, Jesus, and Hard Work.",
+        mainImg: "GrandpaC.png",
+        album: [
+            { src: "Grandma.png", caption: "Testing this image" },
+            { src: "Grandma.png", caption: "Testing this image" },
+            { src: "Grandma.png", caption: "Testing this image" },
+            { src: "Grandma.png", caption: "Testing this image" },
+        ]
+    },
     "dad": {
         name: "Dad",
         birthday: "January 15, 1970",
@@ -23,4 +36,4 @@ module.exports = {
         ]
     }
     // You can easily add 100 more people here without cluttering your logic
-};
+}
