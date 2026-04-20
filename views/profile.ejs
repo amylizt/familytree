@@ -38,12 +38,23 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 0; /* Remove gap to allow flex to handle spacing */
+        }
+
+        /* TOP SECTION: Photo and Title */
+        .top-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
         }
 
         .photo-frame-container {
             position: relative;
             width: 100%;
+            max-width: 450px;
             line-height: 0;
         }
 
@@ -71,15 +82,28 @@
             background: transparent;
         }
 
+        /* MIDDLE SECTION: Parchment Banner */
         .parchment-banner {
             background: #f1e4d1;
             border: 1px solid #bda07b;
-            padding: 4px 10px;
-            margin: 2px auto;
-            width: 92%;
+            padding: 6px 15px;
+            margin: 10px auto;
+            width: 90%;
             font-style: italic;
-            font-size: 0.85em;
+            font-size: 0.9em;
             color: #5d4037;
+            z-index: 30;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* BOTTOM SECTION: Stats and Controls */
+        .bottom-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 100%;
+            padding-bottom: 5px;
         }
 
         .fact-box {
@@ -87,85 +111,91 @@
             background-size: 100% 100%;
             background-repeat: no-repeat;
             color: #f4ece1;
-            padding: 25px 40px; 
+            padding: 25px 45px; 
             text-align: left;
             width: 100%; 
-            min-height: 180px; /* Increased from previous version to accommodate new text */
+            flex: 1; /* Makes the box fill the remaining space in the bottom section */
             text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .fact-box h3 {
-            margin: 0 0 8px 0;
+            margin: 0 0 10px 0;
             text-align: center;
             border-bottom: 1px solid rgba(215, 204, 200, 0.4);
-            font-size: 1.1em;
+            font-size: 1.2em;
             font-variant: small-caps;
         }
 
-        .fact-item { margin-bottom: 6px; display: flex; align-items: center; gap: 8px; font-size: 0.85em; }
-        .stat-label { font-weight: bold; color: #d7ccc8; min-width: 75px; display: inline-block; }
+        .fact-item { margin-bottom: 8px; display: flex; align-items: center; gap: 10px; font-size: 0.9em; }
+        .stat-label { font-weight: bold; color: #d7ccc8; min-width: 80px; display: inline-block; }
 
         @media (min-width: 600px) {
             body { padding: 20px; justify-content: center; }
             .profile-container { 
-                border-width: 12px; padding: 20px; gap: 12px; 
-                max-width: 550px; width: 100%; height: auto; min-height: 80vh; border-radius: 15px;
+                border-width: 12px; padding: 25px; 
+                max-width: 550px; width: 100%; height: auto; min-height: 85vh; border-radius: 15px;
             }
-            .fact-box { padding: 45px 60px; min-height: 280px; }
-            .fact-box h3 { font-size: 1.3em; margin-bottom: 12px; }
-            .fact-item { font-size: 0.95em; margin-bottom: 10px; }
-            .parchment-banner { font-size: 1.1em; padding: 8px; }
+            .fact-box { padding: 45px 65px; min-height: 250px; }
+            .parchment-banner { font-size: 1.1em; padding: 10px; }
         }
 
         @media (min-width: 1025px) {
-            .profile-container { border-width: 14px; padding: 30px; max-width: 600px; gap: 15px; }
-            .fact-box { padding: 60px 80px; min-height: 320px; }
+            .profile-container { border-width: 14px; padding: 35px; max-width: 600px; }
+            .fact-box { padding: 60px 80px; min-height: 300px; }
             .main-photo { padding: 8.2% 11.5% 8% 10.2%; }
             h1 { font-size: 2.2em; }
         }
 
-        .controls-container { margin-top: 5px; }
+        .controls-container { padding: 5px 0; }
         #photoSlider { width: 85%; accent-color: #81c784; cursor: pointer; }
-        .back-btn { text-decoration: none; color: #5d4037; font-weight: bold; font-size: 0.85em; margin-bottom: 5px; }
+        .back-btn { text-decoration: none; color: #5d4037; font-weight: bold; font-size: 0.85em; }
 
-        h1 { font-size: 1.4em; margin: 5px 0 2px 0; color: #4e342e; }
+        h1 { font-size: 1.5em; margin: 8px 0 0 0; color: #4e342e; line-height: 1.2; }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <div class="photo-frame-container">
-            <img src="/familytree/border.webp" class="photo-border-overlay" alt="frame-border">
-            <% 
-               const main = (member.mainImg || "").toLowerCase().trim();
-               const filteredAlbum = member.album.filter(img => img.toLowerCase().trim() !== main);
-               const initialPhoto = filteredAlbum.length > 0 ? filteredAlbum[0] : '';
-            %>
-            <img src="/familytree/<%= initialPhoto %>" 
-                 class="main-photo" 
-                 id="morphingFrame" 
-                 crossorigin="anonymous"
-                 data-album='<%- JSON.stringify(filteredAlbum) %>'>
-            
+        <div class="top-section">
+            <div class="photo-frame-container">
+                <img src="/familytree/border.webp" class="photo-border-overlay" alt="frame-border">
+                <% 
+                   const main = (member.mainImg || "").toLowerCase().trim();
+                   const filteredAlbum = member.album.filter(img => img.toLowerCase().trim() !== main);
+                   const initialPhoto = filteredAlbum.length > 0 ? filteredAlbum[0] : '';
+                %>
+                <img src="/familytree/<%= initialPhoto %>" 
+                     class="main-photo" 
+                     id="morphingFrame" 
+                     crossorigin="anonymous"
+                     data-album='<%- JSON.stringify(filteredAlbum) %>'>
+            </div>
             <h1><%= member.name %></h1>
         </div>
 
         <div class="parchment-banner">"<%= member.knownFor %>"</div>
 
-        <div class="fact-box">
-            <h3>Vital Records</h3>
-            <div class="fact-item"><span class="stat-label">Born:</span> <%= member.birthday %></div>
-            <div class="fact-item"><span class="stat-label">Location:</span> <%= member.location %></div>
-            <hr style="border: 0; border-top: 1px solid rgba(215, 204, 200, 0.2); margin: 8px 0;">
-            <div class="fact-item">🌿 Key family milestones</div>
-            <div class="fact-item">🌿 Favorite family vacations</div>
-        </div>
+        <div class="bottom-section">
+            <div class="fact-box">
+                <h3>Vital Records</h3>
+                <div class="fact-item"><span class="stat-label">Born:</span> <%= member.birthday %></div>
+                <div class="fact-item"><span class="stat-label">Location:</span> <%= member.location %></div>
+                <hr style="border: 0; border-top: 1px solid rgba(215, 204, 200, 0.2); margin: 10px 0;">
+                <div class="fact-item">🌿 Key family milestones</div>
+                <div class="fact-item">🌿 Favorite family vacations</div>
+            </div>
 
-        <div class="controls-container" id="controls" style="display: none;">
-            <input type="range" id="photoSlider" min="0" value="0">
-            <div><button id="playPauseBtn" style="background:none; border:1px solid #5d4037; border-radius:10px; cursor:pointer; color:#5d4037; padding: 2px 12px; font-size:0.85em;">Pause</button></div>
-        </div>
+            <div class="controls-container" id="controls" style="display: none;">
+                <input type="range" id="photoSlider" min="0" value="0">
+                <div style="margin-top: 4px;">
+                    <button id="playPauseBtn" style="background:rgba(255,250,244,0.3); border:1px solid #5d4037; border-radius:10px; cursor:pointer; color:#5d4037; padding: 2px 15px; font-size:0.85em;">Pause</button>
+                </div>
+            </div>
 
-        <a href="/familytree" class="back-btn">← Back to Tree</a>
+            <a href="/familytree" class="back-btn">← Back to Tree</a>
+        </div>
     </div>
 
     <script>
