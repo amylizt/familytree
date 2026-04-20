@@ -18,7 +18,7 @@
             align-items: center; 
             min-height: 100vh;
             margin: 0;
-            padding: 0; /* Remove padding for true full-screen on mobile */
+            padding: 0; 
         }
 
         .profile-container { 
@@ -29,9 +29,9 @@
             background-size: cover;
             padding: 12px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
-            max-width: 100%; /* Stretch to phone width */
+            max-width: 100%; 
             width: 100vw; 
-            height: 100vh; /* Stretch to phone height */
+            height: 100vh; 
             text-align: center;
             border: 8px solid #1a0f0d; 
             position: relative;
@@ -68,6 +68,7 @@
             z-index: 5;
             opacity: 0; 
             transition: opacity 0.5s ease-in-out;
+            background: transparent;
         }
 
         .parchment-banner {
@@ -89,7 +90,7 @@
             padding: 25px 35px; 
             text-align: left;
             width: 100%; 
-            flex-grow: 1; /* Allow the box to grow to fill mobile height */
+            flex-grow: 1; 
             min-height: 180px;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
         }
@@ -102,8 +103,6 @@
         }
 
         .fact-item { margin-bottom: 6px; display: flex; align-items: center; gap: 8px; font-size: 0.85em; }
-
-        /* DEVICE BREAKPOINTS */
 
         @media (min-width: 600px) {
             body { padding: 20px; justify-content: center; }
@@ -141,8 +140,13 @@
         <div class="photo-frame-container">
             <img src="/familytree/border.webp" class="photo-border-overlay" alt="frame-border">
             <% 
-               const filteredAlbum = member.album.filter(img => img !== member.mainImg);
-               const initialPhoto = filteredAlbum.length > 0 ? filteredAlbum[0] : member.mainImg;
+               // TRIPLE-LOCK FILTER: 
+               // 1. Lowercase both names for a safe comparison
+               // 2. Trim any accidental whitespace
+               const main = (member.mainImg || "").toLowerCase().trim();
+               const filteredAlbum = member.album.filter(img => img.toLowerCase().trim() !== main);
+               
+               const initialPhoto = filteredAlbum.length > 0 ? filteredAlbum[0] : '';
             %>
             <img src="/familytree/<%= initialPhoto %>" 
                  class="main-photo" 
@@ -184,6 +188,9 @@
         let modelsLoaded = false;
 
         window.onload = () => {
+            // Log to console so you can inspect the actual list on your phone
+            console.log("Album list sent to browser:", photoList);
+
             if (photoList.length > 0) {
                 controls.style.display = 'block';
                 slider.max = photoList.length - 1;
@@ -209,7 +216,7 @@
         }
 
         async function updateDisplay(index, isInitial = false) {
-            if (photoList.length === 0) return;
+            if (!photoList || photoList.length === 0) return;
             currentIndex = index;
             if (!isInitial) frame.style.opacity = '0';
 
@@ -220,12 +227,16 @@
             tempImg.onload = async function() {
                 frame.src = tempImg.src;
                 if (modelsLoaded && typeof faceapi !== 'undefined') {
-                    const detections = await faceapi.detectAllFaces(frame, new faceapi.TinyFaceDetectorOptions());
-                    if (detections.length > 0) {
-                        const box = detections[0].box;
-                        const centerX = ((box.x + box.width / 2) / frame.naturalWidth) * 100;
-                        const centerY = ((box.y + box.height / 2.5) / frame.naturalHeight) * 100;
-                        frame.style.objectPosition = `${centerX}% ${centerY}%`;
+                    try {
+                        const detections = await faceapi.detectAllFaces(frame, new faceapi.TinyFaceDetectorOptions());
+                        if (detections.length > 0) {
+                            const box = detections[0].box;
+                            const centerX = ((box.x + box.width / 2) / frame.naturalWidth) * 100;
+                            const centerY = ((box.y + box.height / 2.5) / frame.naturalHeight) * 100;
+                            frame.style.objectPosition = `${centerX}% ${centerY}%`;
+                        }
+                    } catch (err) {
+                        console.error("Detection error:", err);
                     }
                 }
                 slider.value = currentIndex;
