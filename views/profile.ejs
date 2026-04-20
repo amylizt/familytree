@@ -4,110 +4,287 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= member.name %> - Profile</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
     <style>
-        body { font-family: 'Georgia', serif; background-color: #f4ece1; color: #5d4037; display: flex; flex-direction: column; align-items: center; padding: 50px; }
-        .profile-container { background: #fffaf4; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 800px; width: 100%; text-align: center; }
-        .header-section { display: flex; align-items: center; justify-content: center; gap: 40px; margin-bottom: 30px; border-bottom: 1px solid #dcd3c9; padding-bottom: 30px; }
-        .main-photo { width: 200px; height: 200px; border-radius: 50%; border: 5px solid #8d6e63; object-fit: cover; }
-        .bio-info { text-align: left; }
-        .bio-info h1 { margin: 0; font-variant: small-caps; font-size: 2.5em; }
-        .album-grid { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
-        .album-item { display: flex; flex-direction: column; align-items: center; width: 120px; }
-        .album-photo { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #8d6e63; object-fit: cover; }
-        .caption { font-size: 0.8em; margin-top: 8px; font-style: italic; }
-        .back-btn { margin-top: 30px; text-decoration: none; color: #8d6e63; font-weight: bold; display: block; }
-        
-        /* Styles for the Poem Link Box */
-        .special-record-link { 
-            margin-top: 30px; 
-            padding: 20px; 
-            background: #f9f3e6; 
-            border-left: 5px solid #8b5a2b; 
-            text-align: left; 
-        }
-        .btn { 
-            display: inline-block; 
-            padding: 10px 20px; 
-            background: #8b5a2b; 
-            color: white; 
-            text-decoration: none; 
-            border-radius: 5px; 
-            margin-top: 10px;
-            font-weight: bold;
+        body { 
+            font-family: 'Georgia', serif; 
+            background: radial-gradient(circle, #f4ece1 0%, #d9e2d5 100%);
+            background-attachment: fixed;
+            color: #3e2723; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 20px;
+            margin: 0;
         }
 
-        /* Modal Styles */
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); }
-        .modal-content-container { margin: auto; display: block; width: 80%; max-width: 600px; aspect-ratio: 1 / 1; position: relative; top: 50%; transform: translateY(-50%); }
-        .modal-content { width: 100%; height: 100%; object-fit: cover; border: 5px solid white; }
-        .close { position: absolute; top: 20px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer; }
-        #caption { margin: auto; display: block; width: 80%; text-align: center; color: #ccc; padding: 10px 0; }
+        .profile-container { 
+            background-color: #fffaf4;
+            background-image: url('/familytree/profiletree.webp'); 
+            background-repeat: no-repeat;
+            background-position: center bottom;
+            background-size: 140% auto;
+            padding: 30px; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+            max-width: 600px; 
+            width: 100%; 
+            text-align: center;
+            border: 14px solid #1a0f0d; 
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photo-frame-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .photo-border-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 20;
+            pointer-events: none;
+            object-fit: fill;
+        }
+
+        .main-photo { 
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            padding: 50px 55px 35px 50px; 
+            box-sizing: border-box;
+            position: relative;
+            z-index: 5;
+            opacity: 0; 
+            transition: opacity 0.5s ease-in-out;
+            background: transparent;
+        }
+
+        .parchment-banner {
+            background: #f1e4d1;
+            border: 2px solid #bda07b;
+            padding: 10px 20px;
+            margin: 20px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 85%;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            font-style: italic;
+            font-size: 1.2em;
+            color: #5d4037;
+            z-index: 10;
+        }
+        
+        .parchment-banner::before, .parchment-banner::after {
+            content: "";
+            position: absolute;
+            height: 100%;
+            width: 15px;
+            background: #dcc8ac;
+            top: 0;
+            border: 1px solid #bda07b;
+        }
+        .parchment-banner::before { left: -15px; border-radius: 5px 0 0 5px; }
+        .parchment-banner::after { right: -15px; border-radius: 0 5px 5px 0; }
+
+        .fact-box {
+            background-image: url('/familytree/lower.webp');
+            background-size: 100% 100%; /* Ensures it stretches to full container width/length */
+            background-repeat: no-repeat;
+            color: #f4ece1;
+            padding: 60px 80px; /* More padding to keep text clear of the box edges */
+            text-align: left;
+            /* Negative margin helps align with the wider top border container */
+            margin: -10px -30px 20px -30px; 
+            width: calc(100% + 60px); 
+            box-sizing: border-box;
+            min-height: 400px; /* Increased length as requested */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+            position: relative;
+        }
+
+        .fact-box h3 {
+            margin: 0 0 20px 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(215, 204, 200, 0.4);
+            padding-bottom: 10px;
+            color: #d7ccc8;
+            font-variant: small-caps;
+            font-size: 1.5em;
+        }
+
+        .fact-item { margin-bottom: 15px; display: flex; align-items: center; gap: 12px; font-size: 1.1em; }
+        .leaf-icon { color: #81c784; font-size: 1.3em; }
+
+        .controls-container { margin-top: 20px; }
+        #photoSlider { width: 90%; accent-color: #81c784; cursor: pointer; }
+        .play-btn {
+            background: #5d4037;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .back-btn { margin-top: 20px; text-decoration: none; color: #5d4037; font-weight: bold; display: block; }
     </style>
 </head>
 <body>
     <div class="profile-container">
-        <div class="header-section">
-            <img src="/familytree/<%= member.mainImg %>" class="main-photo" alt="<%= member.name %>">
-            <div class="bio-info">
-                <h1><%= member.name %></h1>
-                <p><strong>Birthday:</strong> <%= member.birthday %></p>
-                <p><strong>Location:</strong> <%= member.location %></p>
-                <p><strong>Known for...:</strong> <%= member.knownFor %></p>
-            </div>
+        <h2 style="font-variant: small-caps; color: #5d4037; margin-top: 0;">Family Legacy Biography</h2>
+
+        <div class="photo-frame-container">
+            <img src="/familytree/border.webp" class="photo-border-overlay" alt="frame-border">
+            
+            <% 
+               const filteredAlbum = member.album.filter(img => img !== member.mainImg);
+               const initialPhoto = filteredAlbum.length > 0 ? filteredAlbum[0] : member.mainImg;
+            %>
+
+            <img src="/familytree/<%= initialPhoto %>" 
+                 class="main-photo" 
+                 id="morphingFrame" 
+                 alt="<%= member.name %>"
+                 crossorigin="anonymous"
+                 data-album='<%- JSON.stringify(filteredAlbum) %>'>
+            
+            <h1 style="color: #4e342e; margin: 15px 0 5px 0;"><%= member.name %></h1>
+            <p style="font-size: 0.9em; color: #8d6e63; margin: 0;">Born: <%= member.birthday %> | <%= member.location %></p>
         </div>
 
-        <div class="album-grid">
-            <% member.album.forEach(photo => { %>
-                <div class="album-item">
-                    <img src="/familytree/<%= photo.src %>" class="album-photo" onerror="this.src='https://via.placeholder.com/100'">
-                    <span class="caption"><%= photo.caption %></span>
-                </div>
-            <% }) %>
+        <div class="parchment-banner">"<%= member.knownFor %>"</div>
+
+        <div class="fact-box">
+            <h3>Memories & Stories</h3>
+            <div class="fact-item"><span class="leaf-icon">🌿</span> Key family milestones</div>
+            <div class="fact-item"><span class="leaf-icon">🌿</span> First words, steps, and hobbies</div>
+            <div class="fact-item"><span class="leaf-icon">🌿</span> Favorite family vacations</div>
+            <div class="fact-item"><span class="leaf-icon">🌿</span> School and achievement highlights</div>
         </div>
 
-        <% if (member.name.includes('Chupp')) { %>
-            <div class="special-record-link">
-                <h3 style="margin-top: 0;">📜 Family History Found</h3>
-                <p>A poem titled <strong>"Doggone Sweet"</strong> was written about this generation in 1940.</p>
-                <a href="/familytree/poem" class="btn">Read the Poem</a>
-            </div>
-        <% } %>
+        <div class="controls-container" id="controls" style="display: none;">
+            <input type="range" id="photoSlider" min="0" value="0">
+            <div><button id="playPauseBtn" class="play-btn">Pause</button></div>
+        </div>
 
         <a href="/familytree" class="back-btn">← Back to Tree</a>
     </div>
 
-    <div id="imageModal" class="modal">
-        <span class="close">&times;</span>
-        <div class="modal-content-container">
-            <img class="modal-content" id="img01">
-            <div id="caption"></div>
-        </div>
-    </div>
-
     <script>
-        const modal = document.getElementById("imageModal");
-        const modalImg = document.getElementById("img01");
-        const captionText = document.getElementById("caption");
+        const photoList = JSON.parse(document.getElementById('morphingFrame').dataset.album);
+        const frame = document.getElementById('morphingFrame');
+        const slider = document.getElementById('photoSlider');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const controls = document.getElementById('controls');
 
-        document.querySelectorAll('.main-photo, .album-photo').forEach(img => {
-            img.style.cursor = "pointer";
-            img.onclick = function() {
-                modal.style.display = "block";
-                modalImg.src = this.src;
-                const caption = this.parentElement.querySelector('.caption');
-                captionText.innerHTML = caption ? caption.innerHTML : "";
+        let currentIndex = 0;
+        let isPlaying = false;
+        let streamInterval;
+        let modelsLoaded = false;
+
+        window.onload = () => {
+            if (photoList.length > 0) {
+                controls.style.display = 'block';
+                slider.max = photoList.length - 1;
+                loadModels();
+            } else {
+                frame.style.opacity = '1';
             }
-        });
+        };
 
-        document.querySelector(".close").onclick = function() { 
-            modal.style.display = "none";
+        async function loadModels() {
+            const MODEL_URL = 'https://justadudewhohacks.github.io/face-api.js/models';
+            try {
+                await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+                modelsLoaded = true;
+                await updateDisplay(0, true);
+                
+                if (photoList.length > 1) {
+                    isPlaying = true;
+                    streamInterval = setInterval(nextPhoto, 3000);
+                }
+            } catch (e) {
+                console.error("AI Model Error:", e);
+                frame.style.opacity = '1';
+            }
         }
 
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
+        async function updateDisplay(index, isInitial = false) {
+            if (photoList.length === 0) return;
+            currentIndex = index;
+            
+            if (!isInitial) frame.style.opacity = '0';
+
+            const tempImg = new Image();
+            tempImg.crossOrigin = "anonymous"; 
+            tempImg.src = "/familytree/" + photoList[currentIndex];
+
+            return new Promise((resolve) => {
+                tempImg.onload = async function() {
+                    frame.src = tempImg.src;
+                    
+                    if (modelsLoaded && typeof faceapi !== 'undefined') {
+                        try {
+                            const detections = await faceapi.detectAllFaces(frame, new faceapi.TinyFaceDetectorOptions());
+                            if (detections.length > 0) {
+                                const box = detections[0].box;
+                                const centerX = ((box.x + box.width / 2) / frame.naturalWidth) * 100;
+                                const centerY = ((box.y + box.height / 2.5) / frame.naturalHeight) * 100;
+                                frame.style.objectPosition = `${centerX}% ${centerY}%`;
+                            } else {
+                                frame.style.objectPosition = 'center 20%';
+                            }
+                        } catch (err) {
+                            frame.style.objectPosition = 'center 20%';
+                        }
+                    }
+                    
+                    slider.value = currentIndex;
+                    frame.style.opacity = '1';
+                    resolve();
+                };
+            });
         }
+
+        function nextPhoto() {
+            if (photoList.length <= 1) return;
+            let nextIndex = (currentIndex + 1) % photoList.length;
+            updateDisplay(nextIndex);
+        }
+
+        function togglePlay() {
+            if (isPlaying) {
+                clearInterval(streamInterval);
+                playPauseBtn.innerText = "Play";
+            } else {
+                nextPhoto();
+                streamInterval = setInterval(nextPhoto, 3000);
+                playPauseBtn.innerText = "Pause";
+            }
+            isPlaying = !isPlaying;
+        }
+
+        slider.oninput = function() {
+            if (isPlaying) togglePlay(); 
+            updateDisplay(parseInt(this.value));
+        };
+
+        playPauseBtn.onclick = togglePlay;
     </script>   
 </body>
 </html>

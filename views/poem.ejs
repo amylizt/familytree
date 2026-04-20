@@ -30,7 +30,7 @@
 
         .poem-content-box {
             text-align: left;
-            background-image: url('/familytree/parchment.jpg');
+            background-image: url('/familytree/parchment.webp');
             background-color: #fdf8f0;
             border: 2px solid #8d6e63;
             padding: 25px;
@@ -166,28 +166,24 @@ Well there, as one in doggone sweetness dwell
 — Fanny D. Mast, July 7, 1940
         </div>
 <div style="margin-top: 40px; border-top: 1px solid #dcd3c9; padding-top: 20px;">
-            <h3>Family Video</h3>
-            <p style="font-size: 0.95rem; margin-bottom: 15px;">
-                Watch a video of Andy and Eva Chupp (the subjects of this poem) being interviewed.
-            </p>
-            
-            <div class="video-wrapper" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; border-radius: 4px;">
-                <iframe 
-                    src="https://www.youtube.com/embed/ARe186alNAA" 
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-            
-            <p style="margin-top: 10px;">
-                <a href="https://youtu.be/ARe186alNAA" target="_blank" style="color: #8b5a2b; font-size: 0.8rem; text-decoration: none;">
-                    Open on YouTube →
-                </a>
-            </p>
-        </div>
+    <h3>Family Video</h3>
+    <p style="font-size: 0.95rem; margin-bottom: 15px;">
+        Watch a video of Andy and Eva Chupp (the subjects of this poem) being interviewed.
+    </p>
 
-        <%# <a href="javascript:history.back()" class="back-link">← Back to Profile</a> %>
-
+    <div class="video-wrapper" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; border-radius: 4px;">
+        <video 
+            controls 
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;">
+            <source src="/familytree/video/Andy_and_Eva.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
     </div>
+
+    <p style="margin-top: 10px;">
+        <span style="color: #8b5a2b; font-size: 0.8rem;">Playing Local File</span>
+    </p>
+</div>
+
 </body>
 </html>
