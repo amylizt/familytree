@@ -22,7 +22,7 @@ module.exports = {
     },
     "dixie": {
         name: "Dixie",
-        birthday: "June 3, 2005",
+        birthday: "June 3, 2006",
         location: "Wilmington, DE",
         currently: "Pursuing Degree in Psychology",
         knownFor: "Bright Smaile and Sense of Adventure!!",
