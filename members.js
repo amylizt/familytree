@@ -22,9 +22,10 @@ module.exports = {
     },
     "dixie": {
         name: "Dixie",
-        birthday: "June 10, 2005",
-        location: "Salisbury, MD",
-        knownFor: "Her bright smile and love for adventure!",
+        birthday: "June 3, 2005",
+        location: "Wilmington, DE",
+        currently: "Pursuing Degree in Psychology",
+        knownFor: "Bright Smaile and Sense of Adventure!!",
         mainImg: "dixie.webp"
     }
 }

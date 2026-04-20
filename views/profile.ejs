@@ -16,11 +16,10 @@
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            min-height: 100vh;
-            min-height: 100dvh; /* Dynamic viewport height for mobile */
+            min-height: 100dvh;
             margin: 0;
             padding: 0; 
-            overflow: hidden; /* Prevent body bounce */
+            overflow: hidden;
         }
 
         .profile-container { 
@@ -32,8 +31,7 @@
             padding: 8px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
             width: 100vw; 
-            height: 100vh; 
-            height: 100dvh; /* Account for browser address bars */
+            height: 100dvh;
             text-align: center;
             border: 8px solid #1a0f0d; 
             position: relative;
@@ -42,9 +40,8 @@
             overflow: hidden;
         }
 
-        /* Top Section: Photo and Title */
         .top-section {
-            flex: 1.1; /* Slightly larger share for the photo */
+            flex: 1.1;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -83,7 +80,6 @@
             background: transparent;
         }
 
-        /* Middle Section: Parchment Banner */
         .parchment-banner {
             background: #f1e4d1;
             border: 1px solid #bda07b;
@@ -96,7 +92,6 @@
             z-index: 30;
         }
 
-        /* Bottom Section: Stats and Controls */
         .bottom-section {
             flex: 1;
             display: flex;
@@ -111,7 +106,8 @@
             background-size: 100% 100%;
             background-repeat: no-repeat;
             color: #f4ece1;
-            padding: 20px 40px; 
+            /* Increased horizontal padding to create "margins" inside the box */
+            padding: 20px 55px; 
             text-align: left;
             width: 100%; 
             flex: 1; 
@@ -119,19 +115,26 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            overflow: hidden;
         }
 
         .fact-box h3 {
-            margin: 0 0 5px 0;
+            margin: 0 0 10px 0;
             text-align: center;
             border-bottom: 1px solid rgba(215, 204, 200, 0.4);
             font-size: 1.1em;
             font-variant: small-caps;
         }
 
-        .fact-item { margin-bottom: 5px; display: flex; align-items: center; gap: 8px; font-size: 0.85em; }
-        .stat-label { font-weight: bold; color: #d7ccc8; min-width: 70px; display: inline-block; }
+        .fact-item { 
+            margin-bottom: 8px; 
+            display: flex; 
+            align-items: baseline; 
+            gap: 10px; 
+            font-size: 0.9em; 
+        }
+
+        .leaf-icon { color: #81c784; font-size: 1.1em; }
+        .stat-label { font-weight: bold; color: #d7ccc8; min-width: 70px; }
 
         @media (min-width: 600px) {
             body { padding: 20px; justify-content: center; overflow: auto; }
@@ -139,15 +142,14 @@
                 border-width: 12px; padding: 25px; 
                 max-width: 550px; width: 100%; height: auto; min-height: 85vh; border-radius: 15px;
             }
-            .fact-box { padding: 45px 65px; min-height: 250px; }
+            .fact-box { padding: 45px 80px; min-height: 250px; }
             .parchment-banner { font-size: 1.1em; padding: 10px; margin: 15px auto; }
-            .fact-item { font-size: 0.95em; margin-bottom: 10px; }
             h1 { font-size: 2em; }
         }
 
         .controls-container { padding: 5px 0; }
         #photoSlider { width: 85%; accent-color: #81c784; cursor: pointer; height: 15px; }
-        .back-btn { text-decoration: none; color: #5d4037; font-weight: bold; font-size: 0.8em; margin-top: 2px; }
+        .back-btn { text-decoration: none; color: #5d4037; font-weight: bold; font-size: 0.8em; }
 
         h1 { font-size: 1.3em; margin: 5px 0 0 0; color: #4e342e; line-height: 1.1; }
     </style>
@@ -175,12 +177,19 @@
 
         <div class="bottom-section">
             <div class="fact-box">
-                <h3>Vital Records</h3>
-                <div class="fact-item"><span class="stat-label">Born:</span> <%= member.birthday %></div>
-                <div class="fact-item"><span class="stat-label">Location:</span> <%= member.location %></div>
-                <hr style="border: 0; border-top: 1px solid rgba(215, 204, 200, 0.2); margin: 6px 0;">
-                <div class="fact-item">🌿 Key family milestones</div>
-                <div class="fact-item">🌿 Favorite family vacations</div>
+                <h3>About Me</h3>
+                <div class="fact-item">
+                    <span class="leaf-icon">🌿</span>
+                    <span class="stat-label">Birthdate:</span> <%= member.birthday %>
+                </div>
+                <div class="fact-item">
+                    <span class="leaf-icon">🌿</span>
+                    <span class="stat-label">Location:</span> <%= member.location %>
+                </div>
+                <div class="fact-item">
+                    <span class="leaf-icon">🌿</span>
+                    <span class="stat-label">Currently . . .:</span> <%= member.currently %>
+                </div>
             </div>
 
             <div class="controls-container" id="controls" style="display: none;">
