@@ -27,7 +27,7 @@
             background-repeat: no-repeat;
             background-position: center bottom;
             background-size: cover;
-            padding: 12px; 
+            padding: 10px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
             max-width: 100%; 
             width: 100vw; 
@@ -38,7 +38,7 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 5px; /* Tighter gap for mobile */
         }
 
         .photo-frame-container {
@@ -73,12 +73,12 @@
 
         .parchment-banner {
             background: #f1e4d1;
-            border: 2px solid #bda07b;
+            border: 1px solid #bda07b;
             padding: 4px 10px;
             margin: 2px auto;
             width: 92%;
             font-style: italic;
-            font-size: 0.9em;
+            font-size: 0.85em;
             color: #5d4037;
         }
 
@@ -87,22 +87,21 @@
             background-size: 100% 100%;
             background-repeat: no-repeat;
             color: #f4ece1;
-            padding: 25px 35px; 
+            padding: 20px 30px; /* Reduced padding for mobile */
             text-align: left;
             width: 100%; 
-            flex-grow: 1; 
-            min-height: 180px;
+            min-height: 140px; /* Smaller base height for mobile */
             text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
         }
 
         .fact-box h3 {
-            margin: 0 0 8px 0;
+            margin: 0 0 5px 0;
             text-align: center;
             border-bottom: 1px solid rgba(215, 204, 200, 0.4);
-            font-size: 1.1em;
+            font-size: 1em;
         }
 
-        .fact-item { margin-bottom: 6px; display: flex; align-items: center; gap: 8px; font-size: 0.85em; }
+        .fact-item { margin-bottom: 4px; display: flex; align-items: center; gap: 8px; font-size: 0.8em; }
 
         @media (min-width: 600px) {
             body { padding: 20px; justify-content: center; }
@@ -116,7 +115,9 @@
                 min-height: 80vh;
                 border-radius: 15px;
             }
-            .fact-box { padding: 40px 50px; min-height: 250px; flex-grow: 0; }
+            .fact-box { padding: 40px 50px; min-height: 250px; }
+            .fact-box h3 { font-size: 1.2em; margin-bottom: 10px; }
+            .fact-item { font-size: 0.9em; margin-bottom: 8px; }
             .parchment-banner { font-size: 1.1em; padding: 8px; }
         }
 
@@ -131,8 +132,8 @@
         #photoSlider { width: 85%; accent-color: #81c784; cursor: pointer; }
         .back-btn { text-decoration: none; color: #5d4037; font-weight: bold; font-size: 0.8em; margin-bottom: 5px; }
 
-        h1 { font-size: 1.5em; margin: 5px 0 0 0; color: #4e342e; }
-        .details { font-size: 0.8em; margin: 0; color: #8d6e63; }
+        h1 { font-size: 1.3em; margin: 2px 0 0 0; color: #4e342e; }
+        .details { font-size: 0.75em; margin: 0; color: #8d6e63; }
     </style>
 </head>
 <body>
@@ -140,12 +141,8 @@
         <div class="photo-frame-container">
             <img src="/familytree/border.webp" class="photo-border-overlay" alt="frame-border">
             <% 
-               // TRIPLE-LOCK FILTER: 
-               // 1. Lowercase both names for a safe comparison
-               // 2. Trim any accidental whitespace
                const main = (member.mainImg || "").toLowerCase().trim();
                const filteredAlbum = member.album.filter(img => img.toLowerCase().trim() !== main);
-               
                const initialPhoto = filteredAlbum.length > 0 ? filteredAlbum[0] : '';
             %>
             <img src="/familytree/<%= initialPhoto %>" 
@@ -188,9 +185,6 @@
         let modelsLoaded = false;
 
         window.onload = () => {
-            // Log to console so you can inspect the actual list on your phone
-            console.log("Album list sent to browser:", photoList);
-
             if (photoList.length > 0) {
                 controls.style.display = 'block';
                 slider.max = photoList.length - 1;
@@ -227,16 +221,12 @@
             tempImg.onload = async function() {
                 frame.src = tempImg.src;
                 if (modelsLoaded && typeof faceapi !== 'undefined') {
-                    try {
-                        const detections = await faceapi.detectAllFaces(frame, new faceapi.TinyFaceDetectorOptions());
-                        if (detections.length > 0) {
-                            const box = detections[0].box;
-                            const centerX = ((box.x + box.width / 2) / frame.naturalWidth) * 100;
-                            const centerY = ((box.y + box.height / 2.5) / frame.naturalHeight) * 100;
-                            frame.style.objectPosition = `${centerX}% ${centerY}%`;
-                        }
-                    } catch (err) {
-                        console.error("Detection error:", err);
+                    const detections = await faceapi.detectAllFaces(frame, new faceapi.TinyFaceDetectorOptions());
+                    if (detections.length > 0) {
+                        const box = detections[0].box;
+                        const centerX = ((box.x + box.width / 2) / frame.naturalWidth) * 100;
+                        const centerY = ((box.y + box.height / 2.5) / frame.naturalHeight) * 100;
+                        frame.style.objectPosition = `${centerX}% ${centerY}%`;
                     }
                 }
                 slider.value = currentIndex;
