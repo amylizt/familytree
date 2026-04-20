@@ -38,7 +38,7 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            gap: 5px; /* Tighter gap for mobile */
+            gap: 5px;
         }
 
         .photo-frame-container {
@@ -87,53 +87,48 @@
             background-size: 100% 100%;
             background-repeat: no-repeat;
             color: #f4ece1;
-            padding: 20px 30px; /* Reduced padding for mobile */
+            padding: 25px 40px; 
             text-align: left;
             width: 100%; 
-            min-height: 140px; /* Smaller base height for mobile */
+            min-height: 180px; /* Increased from previous version to accommodate new text */
             text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
         }
 
         .fact-box h3 {
-            margin: 0 0 5px 0;
+            margin: 0 0 8px 0;
             text-align: center;
             border-bottom: 1px solid rgba(215, 204, 200, 0.4);
-            font-size: 1em;
+            font-size: 1.1em;
+            font-variant: small-caps;
         }
 
-        .fact-item { margin-bottom: 4px; display: flex; align-items: center; gap: 8px; font-size: 0.8em; }
+        .fact-item { margin-bottom: 6px; display: flex; align-items: center; gap: 8px; font-size: 0.85em; }
+        .stat-label { font-weight: bold; color: #d7ccc8; min-width: 75px; display: inline-block; }
 
         @media (min-width: 600px) {
             body { padding: 20px; justify-content: center; }
             .profile-container { 
-                border-width: 12px; 
-                padding: 20px; 
-                gap: 12px; 
-                max-width: 550px; 
-                width: 100%; 
-                height: auto; 
-                min-height: 80vh;
-                border-radius: 15px;
+                border-width: 12px; padding: 20px; gap: 12px; 
+                max-width: 550px; width: 100%; height: auto; min-height: 80vh; border-radius: 15px;
             }
-            .fact-box { padding: 40px 50px; min-height: 250px; }
-            .fact-box h3 { font-size: 1.2em; margin-bottom: 10px; }
-            .fact-item { font-size: 0.9em; margin-bottom: 8px; }
+            .fact-box { padding: 45px 60px; min-height: 280px; }
+            .fact-box h3 { font-size: 1.3em; margin-bottom: 12px; }
+            .fact-item { font-size: 0.95em; margin-bottom: 10px; }
             .parchment-banner { font-size: 1.1em; padding: 8px; }
         }
 
         @media (min-width: 1025px) {
             .profile-container { border-width: 14px; padding: 30px; max-width: 600px; gap: 15px; }
-            .fact-box { padding: 60px 80px; min-height: 300px; }
+            .fact-box { padding: 60px 80px; min-height: 320px; }
             .main-photo { padding: 8.2% 11.5% 8% 10.2%; }
             h1 { font-size: 2.2em; }
         }
 
         .controls-container { margin-top: 5px; }
         #photoSlider { width: 85%; accent-color: #81c784; cursor: pointer; }
-        .back-btn { text-decoration: none; color: #5d4037; font-weight: bold; font-size: 0.8em; margin-bottom: 5px; }
+        .back-btn { text-decoration: none; color: #5d4037; font-weight: bold; font-size: 0.85em; margin-bottom: 5px; }
 
-        h1 { font-size: 1.3em; margin: 2px 0 0 0; color: #4e342e; }
-        .details { font-size: 0.75em; margin: 0; color: #8d6e63; }
+        h1 { font-size: 1.4em; margin: 5px 0 2px 0; color: #4e342e; }
     </style>
 </head>
 <body>
@@ -152,24 +147,25 @@
                  data-album='<%- JSON.stringify(filteredAlbum) %>'>
             
             <h1><%= member.name %></h1>
-            <p class="details">Born: <%= member.birthday %> | <%= member.location %></p>
         </div>
 
         <div class="parchment-banner">"<%= member.knownFor %>"</div>
 
         <div class="fact-box">
-            <h3>Memories</h3>
+            <h3>Vital Records</h3>
+            <div class="fact-item"><span class="stat-label">Born:</span> <%= member.birthday %></div>
+            <div class="fact-item"><span class="stat-label">Location:</span> <%= member.location %></div>
+            <hr style="border: 0; border-top: 1px solid rgba(215, 204, 200, 0.2); margin: 8px 0;">
             <div class="fact-item">🌿 Key family milestones</div>
-            <div class="fact-item">🌿 First words, steps, and hobbies</div>
             <div class="fact-item">🌿 Favorite family vacations</div>
         </div>
 
         <div class="controls-container" id="controls" style="display: none;">
             <input type="range" id="photoSlider" min="0" value="0">
-            <div><button id="playPauseBtn" style="background:none; border:1px solid #5d4037; border-radius:10px; cursor:pointer; color:#5d4037; padding: 2px 10px; font-size:0.8em;">Pause</button></div>
+            <div><button id="playPauseBtn" style="background:none; border:1px solid #5d4037; border-radius:10px; cursor:pointer; color:#5d4037; padding: 2px 12px; font-size:0.85em;">Pause</button></div>
         </div>
 
-        <a href="/familytree" class="back-btn">← Back</a>
+        <a href="/familytree" class="back-btn">← Back to Tree</a>
     </div>
 
     <script>
