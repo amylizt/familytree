@@ -7,23 +7,23 @@ const familyMembers = require('./members');
 app.set('view engine', 'ejs');
 app.use('/familytree', express.static(path.join(__dirname, 'public')));
 app.get('/familytree', (req, res) => { res.render('index');});
-app.get('/familytree/poem', (req, res) => {res.render('poem');});
+app.get('/familytree/chupp', (req, res) => {res.render('chupp');});
 
 app.get('/familytree/profile/:id', (req, res) => {
     const memberId = req.params.id;
     const memberData = familyMembers[memberId];
     if (memberData) {
-        const photoDir = path.join(__dirname, 'public');
+        const photoDir = path.join(__dirname, 'public', 'members', memberId);
         fs.readdir(photoDir, (err, files) => {
             if (err) {
                 console.error("Could not read directory", err);
-                return res.render('profile', { member: { ...memberData, album: [] } });
+                return res.render('profile', { member: { ...memberData, id: memberId, album: [] } });
             }
             const automatedAlbum = files
                 .filter(file => file.toLowerCase().startsWith(memberId.toLowerCase()))
                 .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }))
                 .map(file => file);
-            res.render('profile', { member: {...memberData, album: automatedAlbum } });
+            res.render('profile', { member: {...memberData, id: memberId, album: automatedAlbum } });
         });
     } else {
         res.status(404).send("Family member not found.");

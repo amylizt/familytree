@@ -1,197 +1,243 @@
 <% 
 const familyData = {
     title: "Our Family Legacy",
+    settings: {
+        0: { wMult: 0.25, hMult: 0.05, baseY: 0.75 },
+        1: { wMult: 0.35, hMult: 0.07, baseY: 0.70 },
+        2: { wMult: 0.30, hMult: 0.05, baseY: 0.50 },
+        3: { wMult: 0.60, hMult: 0.15, baseY: 0.44 },
+        4: { wMult: 0.15, hMult: 0.03, baseY: 0.30 } 
+    },
+    mobileSettings: {
+        0: { wMult: 0.35, hMult: 0.05, baseY: 0.87 },
+        1: { wMult: 0.45, hMult: 0.06, baseY: 0.65 },
+        2: { wMult: 0.40, hMult: 0.05, baseY: 0.50 },
+        3: { wMult: 0.70, hMult: 0.12, baseY: 0.40 },
+        4: { wMult: 0.25, hMult: 0.04, baseY: 0.10 }
+    },
     members: [
-        { id: "gran", name: "Grandpa", img: "granny.webp", top: 82.5, left: 33.1, mTop: 10, mLeft: 50 },
-        { id: "gran", name: "Granny", img: "granny.webp", top: 80.5, left: 40.4, mTop: 15, mLeft: 50 },
-        { id: "chupp", name: "Grandma", img: "Grandma.webp", top: 80.5, left: 60, mTop: 20, mLeft: 50 },
-        { id: "chupp", name: "Grandpa", img: "GrandpaC.webp", top: 82.5, left: 67, mTop: 25, mLeft: 50 },
-        { id: "dad", name: "Dad", img: "Dad.webp", top: 65.8, left: 47.2, mTop: 35, mLeft: 40 },
-        { id: "mom", name: "Mom", img: "Mom.webp", top: 65.8, left: 52.8, mTop: 35, mLeft: 60 },
-        { id: "amy", name: "Amy", img: "Amy.webp", top: 53.8, left: 64.8, mTop: 45, mLeft: 70 },
-        { id: "jo", name: "Jo", img: "Jo.webp", top: 45.8, left: 76.8, mTop: 50, mLeft: 80 },
-        { id: "wendy", name: "Wendy", img: "wendy.webp", top: 50.8, left: 50.1, mTop: 45, mLeft: 50 },
-        { id: "rich", name: "Rich", img: "rich.webp", top: 53.8, left: 35.1, mTop: 45, mLeft: 30 },
-        { id: "devon", name: "Devon", img: "Devon.webp", top: 46.8, left: 24.1, mTop: 50, mLeft: 20 },
-        { id: "belle", name: "Belle", img: "belle.webp", top: 42.8, left: 17.1, mTop: 55, mLeft: 10 },
-        { id: "dylan", name: "Dylan", img: "Dylan.webp", top: 55.8, left: 14.1, mTop: 40, mLeft: 10 },
-        { id: "axel", name: "Axel", img: "Axel.webp", top: 36.8, left: 10.1, mTop: 60, mLeft: 10 },
-        { id: "peanut", name: "Peanut", img: "peanut.webp", top: 30.8, left: 20.1, mTop: 65, mLeft: 20 },
-        { id: "dixie", name: "Dixie", img: "dixie.webp", top: 37.0, left: 35.1, mTop: 60, mLeft: 35 },
-        { id: "maria", name: "Maria", img: "maria.webp", top: 44.0, left: 59.8, mTop: 55, mLeft: 60 },
-        { id: "jason", name: "Jason", img: "jason.webp", top: 38.0, left: 65.8, mTop: 60, mLeft: 65 },
-        { id: "rhi", name: "Rhi", img: "rhi.webp", top: 30.8, left: 57.8, mTop: 65, mLeft: 60 },
-        { id: "joel", name: "Joel", img: "joel.webp", top: 39.8, left: 45.2, mTop: 60, mLeft: 50 },
-        { id: "maggy", name: "Maggy", img: "maggy.webp", top: 28.8, left: 43.2, mTop: 70, mLeft: 50}
+        { id: "trice", name: "Grandpa & Granny", img: "trice.webp", gen: 0 },
+        { id: "chupp", name: "Grandma & Grandpa", img: "chupp.webp", gen: 0 },
+        { id: "parents", name: "Dad & Mom", img: "dad_and_mom.webp", gen: 1 },
+        { id: "rich", name: "Rich", img: "rich.webp", gen: 2 },
+        { id: "wendy", name: "Wendy", img: "wendy.webp", gen: 2 },
+        { id: "amy", name: "Amy", img: "amy.webp", gen: 2 },
+        { id: "dylan", name: "Dylan", img: "dylan.webp", gen: 3, parentId: "rich" },
+        { id: "devon_belle", name: "Devon & Belle", img: "devon_belle.webp", gen: 3, parentId: "rich" },
+        { id: "maria_jason", name: "Maria & Jason", img: "maria_and_jason.webp", gen: 3, parentId: "wendy" },
+        { id: "joel_maggy", name: "Joel & Maggy", img: "joel_and_maggy.webp", gen: 3, parentId: "wendy" }, 
+        { id: "dixie", name: "Dixie", img: "dixie.webp", gen: 3, parentId: "wendy" },
+        { id: "rhi", name: "Rhiannon", img: "rhi.webp", gen: 3, parentId: "wendy"},
+        { id: "joanna", name: "Jo", img: "joanna.webp", gen: 3 }, 
+        { id: "axel", name: "Axel", img: "axel.webp", gen: 4, parentId: "devon_belle" }
     ]
 };
 %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= familyData.title %></title>
     <style>
-        :root {
-            --trunk: #5d4037;
-            --cream: #f4ece1;
-        }
-
-        body { 
-            background-color: var(--cream); 
-            margin: 0; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            height: 100vh;
-            overflow: hidden;
-            font-family: 'Georgia', serif;
-        }
-
-        h1 { 
-            color: var(--trunk);
-            margin: 2vh 0;
-            font-variant: small-caps;
-            font-size: 4vh;
-        }
-
+        body { margin: 0; background: #f4ece1; overflow-x: hidden; font-family: sans-serif; }
+        
         .tree-viewport {
             position: relative;
-            height: 80vh;
-            aspect-ratio: 679 / 401;
-            background-image: url('tree.webp');
+            width: 100vw; 
+            height: 85vh;
+            background: url('backgrounds/tree.webp') no-repeat center;
             background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
+            margin-top: 2vh;
         }
 
-        .member-card {
+        .member-node {
             position: absolute;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             transform: translate(-50%, -50%);
+            display: flex; flex-direction: column; align-items: center;
             text-decoration: none;
-            z-index: 10;
+            z-index: 5;
         }
 
-        .photo-circle {
-            width: 8vh;
-            height: 8vh;
-            border-radius: 50%;
-            border: 0.4vh solid white;
-            box-shadow: 0 0.5vh 1vh rgba(0,0,0,0.2);
-            overflow: hidden;
-            background: white;
+        .photo-frame { 
+            width: 15vh; height: 15vh; 
+            background: url('backgrounds/frame.webp') no-repeat center;
+            background-size: contain;
+            display: flex; align-items: center; justify-content: center;
         }
 
-        .photo-circle img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
+        .photo-frame img { 
+            width: 6.5vh; height: 6.5vh; 
+            border-radius: 50%; object-fit: cover;
+            position: relative; z-index: -1;
         }
-        
+
         .name-label { 
-            margin-top: 0.5vh; 
-            font-size: 1.2vh; 
-            font-weight: bold; 
-            color: #333; 
-            background: rgba(255,255,255,0.9);
-            padding: 0.2vh 0.8vh;
-            border-radius: 1vh;
-            white-space: nowrap;
+            font-size: 1.2vh; font-weight: bold; color: white; 
+            background: #5d4037; padding: 2px 8px; border-radius: 10px; 
+            margin-top: -30px; white-space: nowrap;
         }
 
-/* MOBILE OVERRIDES */
-@media (max-width: 768px) {
-    body { 
-        overflow-y: auto; 
-        height: auto; 
-    }
-    h1 {
-        margin-top: 5px !important;    /* Pull title to the top of the screen */
-        margin-bottom: 0 !important;   /* Remove space below the title */
-    }
-
-    .tree-viewport {
-        /* 1. Use 80% of the screen height to make it large */
-        height: 80vh; 
-        
-        /* 2. Set the exact aspect ratio of your new image (Width / Height) */
-        aspect-ratio: 514 / 652; 
-
-        /* 3. Ensure it doesn't spill off the sides of narrow phones */
-        max-width: 95vw;
-        width: auto;
-
-        background-image: url('treemobile.webp');
-        background-size: contain;
-        background-repeat: no-repeat;
-        margin: 0px auto;
-    }
-
-    /* 4. Keep circles small relative to the taller tree */
-    .photo-circle { 
-        width: 3.5vh; 
-        height: 3.5vh; 
-        border-width: 0.2vh;
-    }
-    
-    .name-label { 
-        font-size: 0.7vh; 
-        padding: 0.1vh 0.3vh;
-    }
-}
+        /* Mobile Adjustments */
+        @media (orientation: portrait) {
+            .tree-viewport {
+                background-image: url('backgrounds/treemobile.webp') !important;
+                background-size: 100% 100% !important;
+                height: 80vh;
+                aspect-ratio: 514 / 652;
+                width: auto;
+                max-width: 98vw;
+                margin: 10px auto;
+            }
+            .photo-frame { width: 12vh; height: 12vh; }
+            .photo-frame img { width: 5.5vh; height: 5.5vh; }
+            .name-label { font-size: 1.5vh; margin-top: -25px; }
+        }
     </style>
 </head>
 <body>
 
-    <h1><%= familyData.title %></h1>
+    <div class="tree-viewport" id="viewport" 
+         data-settings='<%- JSON.stringify(familyData.settings) %>'
+         data-mobile-settings='<%- JSON.stringify(familyData.mobileSettings) %>'>
+        
+        <% familyData.members.forEach(m => { %>
+            <a href="/familytree/profile/<%= m.id %>" 
+               class="member-node" 
+               id="node-<%= m.id %>" 
+               data-gen="<%= m.gen %>" 
+               data-parent="<%= m.parentId || 'root' %>">
+                <div class="photo-frame">
+                    <img src="/familytree/members/<%= m.id %>/<%= m.img %>" alt="<%= m.name %>">
+                </div>
+                <span class="name-label"><%= m.name %></span>
+            </a>
+        <% }) %>
+    </div>
 
-<div class="tree-viewport">
-    <% familyData.members.forEach((person) => { %>
-        <a href="/familytree/profile/<%= person.id %>" 
-           class="member-card" 
-           data-d-top="<%= person.top %>" data-d-left="<%= person.left %>"
-           data-m-top="<%= person.mTop %>" data-m-left="<%= person.mLeft %>"
-           style="top: <%= person.top %>%; left: <%= person.left %>%;">
+    <script>
+        const viewport = document.getElementById('viewport');
+        const nodes = document.querySelectorAll('.member-node');
+
+        function align() {
+            const v = viewport.getBoundingClientRect();
+            const rectW = v.width;
+            const rectH = v.height;
+            const isMobile = (window.innerHeight > window.innerWidth);
             
-            <div class="photo-circle">
-                <img src="/familytree/<%= person.img %>" alt="<%= person.name %>" onerror="this.src='https://via.placeholder.com/100'">
-            </div>
-            <span class="name-label"><%= person.name %></span>
-        </a>
-    <% }) %>
-</div>
-<script>
-        function updatePositions() {
-            // Updated breakpoint to 768px to match the CSS media query
-            const isMobile = window.innerWidth <= 768; 
+            const genSettings = isMobile 
+                ? JSON.parse(viewport.dataset.mobileSettings) 
+                : JSON.parse(viewport.dataset.settings);
+
+            const nodeMap = {};
+            nodes.forEach(n => { nodeMap[n.id.replace('node-', '')] = n; });
             
-            document.querySelectorAll('.member-card').forEach(card => {
-                // Use 'mTop/mLeft' for mobile and 'dTop/dLeft' for desktop 
-                // to match the data-attributes in your HTML
-                const top = isMobile ? card.dataset.mTop : card.dataset.dTop;
-                const left = isMobile ? card.dataset.mLeft : card.dataset.dLeft;
-                
-                if (top && left) {
-                    card.style.top = top + '%';
-                    card.style.left = left + '%';
-                }
+            const globalGroups = {};
+            const subGroups = {};
+            
+            nodes.forEach(n => {
+                const g = n.dataset.gen;
+                const pId = n.dataset.parent;
+                if(!globalGroups[g]) globalGroups[g] = [];
+                globalGroups[g].push(n);
+
+                const sKey = `${g}-${pId}`;
+                if(!subGroups[sKey]) subGroups[sKey] = [];
+                subGroups[sKey].push(n);
+            });
+
+            Object.keys(genSettings).sort().forEach(gen => {
+                const config = genSettings[gen];
+                const nodesInGen = globalGroups[gen] || [];
+
+                nodesInGen.forEach(node => {
+                    const pId = node.dataset.parent;
+                    const gW = rectW * config.wMult;
+                    const gH = rectH * config.hMult;
+                    const gR = (gH / 2) + (Math.pow(gW, 2) / (8 * gH));
+                    const gStart = Math.asin(-gW / (2 * gR));
+                    const gSweep = Math.abs(gStart * 2);
+                    
+                    const gIndex = nodesInGen.indexOf(node);
+                    const gAngle = nodesInGen.length > 1 ? gStart + (gIndex / (nodesInGen.length - 1)) * gSweep : 0;
+
+                    let finalX = (rectW / 2) + (gR * Math.sin(gAngle));
+                    let finalY = (rectH * config.baseY) - (gR * Math.cos(gAngle) - (gR - gH));
+                    if( isMobile ) {
+                        const mobileCurve = ( gR * Math.cos(gAngle) - (gR - gH));
+                         finalY += (mobileCurve * 2)
+                    }
+                   if( isMobile && pId === 'wendy' ){
+                        const parentNode = nodeMap[ 'wendy' ];
+                        if( parentNode && parentNode.style.left !== "" ) {
+                            const pX = parseFloat(parentNode.style.left);
+                            const pY = parseFloat(parentNode.style.top);
+                            const wendyKids = subGroups[`${gen}-wendy`];
+                            const kIndex = wendyKids.indexOf(node);
+                            const side = kIndex < 2 ? -1 : 1;
+                            const xGap = rectW * 0.08;
+                            const yGap = rectH * 0.23;
+                            const stack = (kIndex % 2 === 0) ? 1 : 1.7;
+                            finalX = pX + (side * xGap * 0.5) + (side * xGap * 0.5 * stack);
+                            finalY = pY - (yGap * stack);
+                       }
+                   }
+                  if (isMobile && pId === 'rich') {
+                            const parentNode = nodeMap['rich'];
+                            if (parentNode && parentNode.style.left !== "") {
+                                const pX = parseFloat(parentNode.style.left);
+                                const pY = parseFloat(parentNode.style.top);
+                                const richKids = subGroups[`${gen}-rich` || `${gen}-root`];
+                                const kIndex = richKids.indexOf(node);
+                                if (node.id === "node-dylan") {
+                                   finalX = pX - (rectW * 0.15); 
+                                   finalY = pY - (rectH * 0.02); 
+                                }
+                                else if (node.id === "node-devon_belle") {
+                                   finalX = pX - (rectW * 0.10); 
+                                   finalY = pY - (rectH * 0.12); 
+                                }
+                            }
+                    }
+                    if (gen === "4" && pId !== 'root' && nodeMap[pId]) {
+                        const parentX = parseFloat(nodeMap[pId].style.left);
+                        const parentY = parseFloat(nodeMap[pId].style.top);
+                        const centerX = rectW / 2;
+                        const sideBias = (parentX < centerX) ? -1 : 1;
+                        const shiftedAnchorX = parentX + (sideBias * (rectW * 0.07));
+                        const verticalGap = rectH * 0.12;
+                        const treeBottom = rectH * 1.2; 
+                        
+                        const tiltAngle = Math.atan2(shiftedAnchorX - centerX, treeBottom - parentY);
+                        const sGroup = subGroups[`${gen}-${pId}`];
+                        const sIndex = sGroup.indexOf(node);
+                        
+                        const sW = rectW * 0.12;
+                        const sH = rectH * 0.04;
+                        const sR = (sH / 2) + (Math.pow(sW, 2) / (8 * sH));
+                        const sStart = Math.asin(-sW / (2 * sR));
+                        const sSweep = Math.abs(sStart * 2);
+                        const localAngle = sGroup.length > 1 ? sStart + (sIndex / (sGroup.length - 1)) * sSweep : 0;
+                        const offsetX = sR * Math.sin(localAngle);
+                        const offsetY = sR * Math.cos(localAngle) - (sR - sH);
+                        const rotatedX = offsetX * Math.cos(tiltAngle) - offsetY * Math.sin(tiltAngle);
+                        const rotatedY = offsetX * Math.sin(tiltAngle) + offsetY * Math.cos(tiltAngle);
+                        
+                        finalX = shiftedAnchorX + rotatedX;
+                        finalY = parentY - verticalGap + rotatedY;
+                    }
+
+                    node.style.left = finalX + 'px';
+                    node.style.top = finalY + 'px';
+                });
             });
         }
 
-        // Listen for window resizing to swap layouts in real-time
-        window.addEventListener('resize', updatePositions);
-        
-        // Run immediately when the DOM is fully loaded
-        document.addEventListener('DOMContentLoaded', updatePositions);
-        
-        // Also run once on initial load
-        updatePositions();
+        window.addEventListener('resize', align);
+        window.onload = align;
+        // Using ResizeObserver to ensure logic fires when the background container reshapes
+        new ResizeObserver(align).observe(viewport);
     </script>
-
 </body>
 </html>

@@ -10,7 +10,7 @@
 
         body { 
             font-family: 'Georgia', serif; 
-            background: radial-gradient(circle, #f4ece1 0%, #d9e2d5 100%);
+            background: radial-gradient(circle, #eaddbd 0%, #f3edda 100%);
             background-attachment: fixed;
             color: #3e2723; 
             display: flex; 
@@ -24,7 +24,7 @@
 
         .profile-container { 
             background-color: #fffaf4;
-            background-image: url('/familytree/profiletree.webp'); 
+            background-image: url('/familytree/backgrounds/profiletree.webp'); 
             background-repeat: no-repeat;
             background-position: center bottom;
             background-size: cover;
@@ -33,7 +33,7 @@
             width: 100vw; 
             height: 100dvh;
             text-align: center;
-            border: 8px solid #1a0f0d; 
+            border: 8px solid #432922; 
             position: relative;
             display: flex;
             flex-direction: column;
@@ -102,11 +102,10 @@
         }
 
         .fact-box {
-            background-image: url('/familytree/lower.webp');
+            background-image: url('/familytree/backgrounds/lower.webp');
             background-size: 100% 100%;
             background-repeat: no-repeat;
             color: #f4ece1;
-            /* Increased horizontal padding to create "margins" inside the box */
             padding: 20px 55px; 
             text-align: left;
             width: 100%; 
@@ -133,7 +132,7 @@
             font-size: 0.9em; 
         }
 
-        .leaf-icon { color: #81c784; font-size: 1.1em; }
+        .leaf-icon { color: #89824e; font-size: 1.1em; }
         .stat-label { font-weight: bold; color: #d7ccc8; min-width: 70px; }
 
         @media (min-width: 600px) {
@@ -148,23 +147,30 @@
         }
 
         .controls-container { padding: 5px 0; }
-        #photoSlider { width: 85%; accent-color: #81c784; cursor: pointer; height: 15px; }
+        #photoSlider { width: 85%; accent-color: #6da300; cursor: pointer; height: 15px; }
         .back-btn { text-decoration: none; color: #5d4037; font-weight: bold; font-size: 0.8em; }
 
         h1 { font-size: 1.3em; margin: 5px 0 0 0; color: #4e342e; line-height: 1.1; }
     </style>
 </head>
 <body>
-    <div class="profile-container">
+   <svg style="display: none;">
+    <symbol id="leaf-icon-symbol" viewBox="0 0 24 24" width="20" height="20" fill="#6da300" >
+      <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7
+              C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3
+              C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/>
+    </symbol>
+   </svg>
+   <div class="profile-container">
         <div class="top-section">
             <div class="photo-frame-container">
-                <img src="/familytree/border.webp" class="photo-border-overlay" alt="frame-border">
+                <img src="/familytree/backgrounds/border.webp" class="photo-border-overlay" alt="frame-border">
                 <% 
                    const main = (member.mainImg || "").toLowerCase().trim();
                    const filteredAlbum = member.album.filter(img => img.toLowerCase().trim() !== main);
                    const initialPhoto = filteredAlbum.length > 0 ? filteredAlbum[0] : '';
                 %>
-                <img src="/familytree/<%= initialPhoto %>" 
+                <img src="/familytree/members/<%= member.id %>/<%= initialPhoto %>" 
                      class="main-photo" 
                      id="morphingFrame" 
                      crossorigin="anonymous"
@@ -178,20 +184,24 @@
         <div class="bottom-section">
             <div class="fact-box">
                 <h3>About Me</h3>
-                <div class="fact-item">
-                    <span class="leaf-icon">🌿</span>
-                    <span class="stat-label">Birthdate:</span> <%= member.birthday %>
-                </div>
-                <div class="fact-item">
-                    <span class="leaf-icon">🌿</span>
-                    <span class="stat-label">Location:</span> <%= member.location %>
-                </div>
-                <div class="fact-item">
-                    <span class="leaf-icon">🌿</span>
-                    <span class="stat-label">Currently . . .:</span> <%= member.currently %>
-                </div>
+            <% member.facts?.forEach(fact => { %>
+              <div class="fact-item">
+                <span class="leaf-icon">
+                    <svg width="18" height="18"><use href="#leaf-icon-symbol"/></svg>
+                </span>
+                <% if (fact.label) { %>
+                    <span class="stat-label"><%= fact.label %>:</span>
+                <% } %>
+                <% if (fact.link) { %>
+                    <a href="<%= fact.link %>" style="color: inherit; text-decoration: underline; font-style: italic;">
+                      <%= fact.text %>
+                  </a>
+                <% } else { %>
+                  <%= fact.text %>
+               <% } %>
             </div>
-
+          <% }); %>
+      </div>
             <div class="controls-container" id="controls" style="display: none;">
                 <input type="range" id="photoSlider" min="0" value="0">
                 <div style="margin-top: 2px;">
@@ -204,12 +214,15 @@
     </div>
 
     <script>
-        const photoList = JSON.parse(document.getElementById('morphingFrame').dataset.album);
+        let photoList = JSON.parse(document.getElementById('morphingFrame').dataset.album || "[]");
+        const mainImg = "<%= member.mainImg %>";
+        if (mainImg && !photoList.includes(mainImg)) { photoList.unshift(mainImg);}
+
         const frame = document.getElementById('morphingFrame');
         const slider = document.getElementById('photoSlider');
         const playPauseBtn = document.getElementById('playPauseBtn');
         const controls = document.getElementById('controls');
-
+        if(slider){ slider.max = Math.max(photoList.length -1) };
         let currentIndex = 0;
         let isPlaying = false;
         let streamInterval;
@@ -247,7 +260,7 @@
 
             const tempImg = new Image();
             tempImg.crossOrigin = "anonymous"; 
-            tempImg.src = "/familytree/" + photoList[currentIndex];
+            tempImg.src = "/familytree/members/<%= member.id %>/" + photoList[currentIndex];
 
             tempImg.onload = async function() {
                 frame.src = tempImg.src;
