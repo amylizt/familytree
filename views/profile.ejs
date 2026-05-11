@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta property="og:type" content="profile">
+    <meta property="og:url" content="https://mayricet.com/familytree/profile/<%= member.id %>">
+    <meta property="og:title" content="<%= member.name %> - Family Profile">
+    <meta property="og:description" content="View history and photos for <%= member.name %>">
+    <meta property="og:image" content="https://mayricet.com/familytree/preview/<%= member.id %>.webp">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://mayricet.com/familytree/preview/<%= member.id %>.webp">
     <title><%= member.name %> - Profile</title>
     <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
     <style>

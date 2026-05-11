@@ -19,17 +19,8 @@ module.exports = {
             { label: "Full Story", text: "Click here to read more", link: "/familytree/chupp" }
         ]
     },
-    "dad": {
-        name: "Dad",
-        mainImg: "Dad.webp",
-        knownFor: "Fixing anything with duct tape",
-        facts: [
-            { label: "Birthdate", text: "January 15, 1970" },
-            { label: "Location", text: "Seattle, WA" }
-        ]
-    },
     "dixie": {
-        name: "Dixie",
+        name: "Dixie Wilson",
         mainImg: "dixie.webp",
         knownFor: "Bright Smile and Sense of Adventure!!",
         facts: [
