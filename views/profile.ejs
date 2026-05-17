@@ -103,7 +103,7 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-start;
             width: 100%;
             padding-bottom: 5px;
         }
@@ -113,10 +113,11 @@
             background-size: 100% 100%;
             background-repeat: no-repeat;
             color: #f4ece1;
-            padding: 20px 55px; 
+            padding: 20px 30px 20px 55px; 
             text-align: left;
             width: 100%; 
-            flex: 1; 
+            /*flex: 1; */
+            min-height: 350px;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
             display: flex;
             flex-direction: column;
@@ -142,18 +143,22 @@
         .leaf-icon { color: #89824e; font-size: 1.1em; }
         .stat-label { font-weight: bold; color: #d7ccc8; min-width: 70px; }
 
+        .controls-container { padding: 5px 0; margin-top: -55px }
         @media (min-width: 600px) {
             body { padding: 20px; justify-content: center; overflow: auto; }
             .profile-container { 
                 border-width: 12px; padding: 25px; 
                 max-width: 550px; width: 100%; height: auto; min-height: 85vh; border-radius: 15px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
             }
-            .fact-box { padding: 45px 80px; min-height: 250px; }
+            .fact-box { padding: 45px 80px; min-height: 300px; }
             .parchment-banner { font-size: 1.1em; padding: 10px; margin: 15px auto; }
             h1 { font-size: 2em; }
+            .controls-container { padding: 5px 0; margin-top: 0 }
         }
 
-        .controls-container { padding: 5px 0; }
         #photoSlider { width: 85%; accent-color: #6da300; cursor: pointer; height: 15px; }
         .back-btn { text-decoration: none; color: #5d4037; font-weight: bold; font-size: 0.8em; }
 

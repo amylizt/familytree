@@ -6,7 +6,7 @@ module.exports = {
         facts: [
             { label: "Birthdate", text: "March 14, 1976" },
             { label: "Hobbies", text: "Incredible Chef!!" },
-            { label: "Parents", text: "Richard and Lydia Trice", link: "/familytree/profile/parents" }
+            { label: "Parents", text: "Rick & Lydia Trice", link: "/familytree/profile/parents" }
         ]
     },
     "chupp": {
@@ -26,7 +26,8 @@ module.exports = {
         facts: [
             { label: "Birthdate", text: "June 3, 2006" },
             { label: "Location", text: "Wilmington, DE" },
-            { label: "Currently", text: "Pursuing Degree in Psychology" }
+            { label: "Currently", text: "Pursuing Degree in Psychology" },
+            { label: "Parents", text: "Jake and Wendy Wilson", link: "/familytree/profile/wendy" }
         ]
     },
     "trice": {
@@ -41,10 +42,13 @@ module.exports = {
     "parents": {
         name: "Richard and Lydia Trice",
         mainImg: "dad_and_mom.webp",
-        knownFor: "",
+        knownFor: "Ther amazing gardens!",
         facts: [
-            { label: "Birthdate", text: "" },
-            { label: "Location", text: "" }
+            { label: "Rick's B'day", text: "05/31/1950" },
+            { label: "Lydia's B'day", text: "12/06/1952" },
+            { label: "Anniverysary", text: "09/16/1972" },
+            { label: "Rick's Parents", text: "Bill & Catherine Trice", link: "/familytree/profile/trice" },
+            { label: "Lydia's Parents", text: "Andy & Eva Chupp", link: "/familytree/profile/chupp" }
         ]
     },
     "rich": {
@@ -60,10 +64,9 @@ module.exports = {
     "amy": {
         name: "Amy Trice",
         mainImg: "amy.webp",
-        knownFor: "",
+        knownFor: "Techy stuff",
         facts: [
-            { label: "Birthdate", text: "" },
-            { label: "Location", text: "" },
+            { label: "Birthdate", text: "05/28/1978" },
             { label: "Parents", text: "Richard and Lydia Trice", link: "/familytree/profile/parents" }
         ]
     },
@@ -112,13 +115,16 @@ module.exports = {
             { label: "Location", text: "" }
         ]
     },
-    "joanna": {
+    "jo": {
         name: "Jo Griffin",
-        mainImg: "joanna.webp",
-        knownFor: "",
+        mainImg: "jo.webp",
+        knownFor: "That AMAZING voice!!",
         facts: [
-            { label: "Birthdate", text: "" },
-            { label: "Location", text: "" }
+            { label: "Birthdate", text: "06/12/2002" },
+            { label: "Parents", text: "Amy Trice", link: "/familytree/profile/amy" },
+            { label: "Jo Singing!", text: "Swing Low, Sweet Chariot", link: "https://www.youtube.com/watch?v=xlBiA1d-oqo" },
+            { label: "Jo Singing!", text: "No Time", link: "https://www.youtube.com/watch?v=Pr_UcgLMB1w" },
+
         ]
     },
     "axel": {
