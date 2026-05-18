@@ -25,7 +25,6 @@ module.exports = {
         knownFor: "Bright Smile and Sense of Adventure!!",
         facts: [
             { label: "Birthdate", text: "June 3, 2006" },
-            { label: "Location", text: "Wilmington, DE" },
             { label: "Currently", text: "Pursuing Degree in Psychology" },
             { label: "Parents", text: "Jake and Wendy Wilson", link: "/familytree/profile/wendy" }
         ]
@@ -33,10 +32,10 @@ module.exports = {
     "trice": {
         name: "William and Catherine Trice",
         mainImg: "trice.webp",
-        knownFor: "",
+        knownFor: "Hard work, bowling, and travel!",
         facts: [
-            { label: "Birthdate", text: "" },
-            { label: "Location", text: "" }
+            { label: "Bill Trice", text: "1921 - 4/2/2004" },
+            { label: "Catherine Hudson Trice", text: "11/23/1923 - 3/26/2019" }
         ]
     },
     "parents": {
@@ -54,10 +53,10 @@ module.exports = {
     "rich": {
         name: "Rich Trice",
         mainImg: "rich.webp",
-        knownFor: "",
+        knownFor: "Survival skills!!",
         facts: [
-            { label: "Birthdate", text: "" },
-            { label: "Location", text: "" },
+            { label: "Birthdate", text: "10/5/1980" },
+            { label: "Claim to Fame", text: "First Trice-kid to become Grandparent!" },
             { label: "Parents", text: "Richard and Lydia Trice", link: "/familytree/profile/parents" }
         ]
     },
@@ -74,46 +73,56 @@ module.exports = {
     "dylan": {
         name: "Dylan Trice",
         mainImg: "dylan.webp",
-        knownFor: "",
+        knownFor: "Collecting coins and builing fractals",
         facts: [
             { label: "Birthdate", text: "" },
-            { label: "Location", text: "" }
+            { label: "Currently", text: "Pursuing degree in Engineering" },
+            { label: "Parents", text: "Rich Trice", link: "/familytree/profile/rich" }
         ]
     },
     "devon_belle": {
         name: "Devon and Belle Trice",
         mainImg: "devon_belle.webp",
-        knownFor: "",
+        knownFor: "Can build practically anything!"
         facts: [
             { label: "Birthdate", text: "" },
-            { label: "Location", text: "" }
+            { label: "Currently", text: "Busy working hard and being a daddy!!" },
+            { label: "Parents", text: "Rich Trice", link: "/familytree/profile/rich" },
+            { label: "Kid", text: "Rich Trice", link: "/familytree/profile/axel" },
+
         ]
     },
     "maria_jason": {
         name: "Jason Null and Maria Wilson",
         mainImg: "maria_and_jason.webp",
-        knownFor: "",
+        knownFor: "Online gaming and cats",
         facts: [
-            { label: "Birthdate", text: "" },
-            { label: "Location", text: "" }
+            { label: "Maria B'day", text: "12/23/1999" },
+            { label: "Jason B'day", text: "No earthly idea." },
+            { label: "Hobbies", text: "Minecraft, Rocket League, Final Fantasy XIV, artwork" },
+            { label: "Parents", text: "Wendy Wilson", link: "/familytree/profile/wendy" }
         ]
     },
     "joel_maggy": {
         name: "Joel Wilson and Maggy Opplinger",
         mainImg: "joel_and_maggy.webp",
-        knownFor: "",
+        knownFor: "Gaming, cats, and KNITTING",
         facts: [
-            { label: "Birthdate", text: "" },
-            { label: "Location", text: "" }
+            { label: "Joel B'day", text: "05/29/2001" },
+            { label: "Maggy B'day", text: "Need to know!" },
+            { label: "Hobbies", text: "Cats, Knitting, and other old people type things!" },
+            { label: "Parents", text: "Wendy Wilson", link: "/familytree/profile/wendy" }
         ]
     },
     "rhi": {
         name: "Rhiannon Wilson",
         mainImg: "rhi.webp",
-        knownFor: "",
+        knownFor: "Exceptional Musical Taste",
         facts: [
-            { label: "Birthdate", text: "" },
-            { label: "Location", text: "" }
+            { label: "Birthdate", text: "4/28/2005" },
+            { label: "Best Quote", text: "Music is my Coffee" },
+            { label: "Hobby", text: "Going to movies with my besties!" },
+            { label: "Parents", text: "Wendy Wilson", link: "/familytree/profile/wendy" }
         ]
     },
     "jo": {
