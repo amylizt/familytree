@@ -14,8 +14,8 @@ module.exports = {
         mainImg: "chupp.webp",
         knownFor: "Laughter, Love, Jesus, and Hard Work.",
         facts: [
-            { label: "Birthdate", text: "January 15 and April 27" },
-            { label: "Location", text: "Places" },
+            { label: "Andy Chupp", text: "1/15/1915 - 3/16/2003" },
+            { label: "Eva Byler Chupp", text: "4/27/1921 - 6/29/2009" },
             { label: "Full Story", text: "Click here to read more", link: "/familytree/chupp" }
         ]
     },
@@ -42,7 +42,7 @@ module.exports = {
     "parents": {
         name: "Richard and Lydia Trice",
         mainImg: "dad_and_mom.webp",
-        knownFor: "Ther amazing gardens!",
+        knownFor: "Thier amazing gardens!",
         facts: [
             { label: "Rick's B'day", text: "05/31/1950" },
             { label: "Lydia's B'day", text: "12/06/1952" },
@@ -67,6 +67,7 @@ module.exports = {
         knownFor: "Techy stuff",
         facts: [
             { label: "Birthdate", text: "05/28/1978" },
+            { label: "Random Thing", text: "I made this website"},
             { label: "Parents", text: "Richard and Lydia Trice", link: "/familytree/profile/parents" }
         ]
     },
