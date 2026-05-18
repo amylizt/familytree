@@ -83,7 +83,7 @@ module.exports = {
     "devon_belle": {
         name: "Devon and Belle Trice",
         mainImg: "devon_belle.webp",
-        knownFor: "Can build practically anything!"
+        knownFor: "Can build practically anything!",
         facts: [
             { label: "Birthdate", text: "" },
             { label: "Currently", text: "Busy working hard and being a daddy!!" },
